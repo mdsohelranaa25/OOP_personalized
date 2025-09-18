@@ -34,7 +34,7 @@ public class HabitFrame extends JFrame {
         setSize(600, 700);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true); // Enable resizing for better scroll experience
         getContentPane().setBackground(MINT_50);
         setLayout(new BorderLayout(0, 0));
 
@@ -50,14 +50,52 @@ public class HabitFrame extends JFrame {
     }
 
     private void initializeComponents() {
-        // Header Panel
-        add(createHeaderPanel(), BorderLayout.NORTH);
+        // Create a main container panel that includes everything
+        JPanel allContentPanel = new JPanel();
+        allContentPanel.setLayout(new BorderLayout());
+        allContentPanel.setBackground(MINT_50);
         
-        // Main Content Panel
-        add(createMainPanel(), BorderLayout.CENTER);
+        // Add all components to the main container
+        allContentPanel.add(createHeaderPanel(), BorderLayout.NORTH);
+        allContentPanel.add(createMainPanel(), BorderLayout.CENTER);
+        allContentPanel.add(createFooterPanel(), BorderLayout.SOUTH);
         
-        // Footer Panel
-        add(createFooterPanel(), BorderLayout.SOUTH);
+        // Wrap everything in a scroll pane
+        JScrollPane scrollPane = new JScrollPane(allContentPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        
+        // Custom scrollbar styling
+        scrollPane.getVerticalScrollBar().setBackground(MINT_50);
+        scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = SAGE_200;
+                this.trackColor = MINT_100;
+            }
+            
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        add(scrollPane, BorderLayout.CENTER);
     }
 
     private JPanel createHeaderPanel() {
@@ -99,7 +137,7 @@ public class HabitFrame extends JFrame {
     private JPanel createMainPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(MINT_50);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(24, 32, 0, 32));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(24, 32, 24, 32));
         mainPanel.setLayout(new BorderLayout());
 
         // Form container
@@ -125,6 +163,9 @@ public class HabitFrame extends JFrame {
         formContainer.add(formPanel, BorderLayout.CENTER);
 
         mainPanel.add(formContainer, BorderLayout.CENTER);
+        
+        // Remove fixed preferred size to let content flow naturally
+        
         return mainPanel;
     }
 

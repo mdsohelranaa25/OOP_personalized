@@ -38,8 +38,9 @@ public class HabitViewer extends JFrame {
         setSize(900, 650);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+        setResizable(true); // Enable resizing for better scroll experience
         getContentPane().setBackground(MINT_50);
+        setLayout(new BorderLayout());
 
         if(viewType.equalsIgnoreCase("today")) showToday();
         else showLast7Days();
@@ -65,7 +66,7 @@ public class HabitViewer extends JFrame {
 
         JPanel graphPanel = createGraphPanel(model, "📊 Today's Habits Overview");
 
-        JPanel mainPanel = createMainPanel();
+        JPanel mainPanel = createScrollableMainPanel();
         
         // Header Panel
         JPanel headerPanel = createHeaderPanel("🌱 Today's Activity", "Track your daily progress", LocalDate.now().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")));
@@ -77,8 +78,12 @@ public class HabitViewer extends JFrame {
         mainPanel.add(createCardPanel(graphPanel, "📊 Visual Chart"));
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(createButtonPanel());
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Extra space at bottom
 
-        add(mainPanel, BorderLayout.CENTER);
+        // Wrap in scroll pane
+        JScrollPane mainScrollPane = createMainScrollPane(mainPanel);
+        add(mainScrollPane, BorderLayout.CENTER);
+        
         revalidate();
         repaint();
     }
@@ -125,7 +130,7 @@ public class HabitViewer extends JFrame {
 
         JPanel graphPanel = createGraphPanel(model, "📊 Weekly Progress Chart");
 
-        JPanel mainPanel = createMainPanel();
+        JPanel mainPanel = createScrollableMainPanel();
         
         // Header Panel
         JPanel headerPanel = createHeaderPanel("📈 Weekly Overview", "Your 7-day habit tracking summary", "Last 7 Days");
@@ -137,10 +142,53 @@ public class HabitViewer extends JFrame {
         mainPanel.add(createCardPanel(graphPanel, "📈 Trend Analysis"));
         mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         mainPanel.add(createButtonPanel());
+        mainPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Extra space at bottom
 
-        add(mainPanel, BorderLayout.CENTER);
+        // Wrap in scroll pane
+        JScrollPane mainScrollPane = createMainScrollPane(mainPanel);
+        add(mainScrollPane, BorderLayout.CENTER);
+        
         revalidate();
         repaint();
+    }
+
+    private JScrollPane createMainScrollPane(JPanel mainPanel) {
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.getVerticalScrollBar().setBlockIncrement(64);
+        
+        // Custom scrollbar styling
+        scrollPane.getVerticalScrollBar().setBackground(MINT_50);
+        scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = SAGE_200;
+                this.trackColor = MINT_100;
+            }
+            
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+            }
+            
+            private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+            }
+        });
+        
+        return scrollPane;
     }
 
     private JPanel createHeaderPanel(String title, String subtitle, String date) {
@@ -179,7 +227,7 @@ public class HabitViewer extends JFrame {
         return headerPanel;
     }
 
-    private JPanel createMainPanel() {
+    private JPanel createScrollableMainPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(MINT_50);
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -191,6 +239,7 @@ public class HabitViewer extends JFrame {
         JPanel cardPanel = new JPanel(new BorderLayout());
         cardPanel.setBackground(WHITE);
         cardPanel.setBorder(new RoundedBorder(16, SAGE_200));
+        cardPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, cardPanel.getPreferredSize().height));
 
         // Card header
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -268,6 +317,7 @@ public class HabitViewer extends JFrame {
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setBackground(MINT_50);
+        buttonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, buttonPanel.getPreferredSize().height));
         
         JButton closeBtn = createModernButton("✖ Close", SLATE_600);
         closeBtn.addActionListener(e -> dispose());
