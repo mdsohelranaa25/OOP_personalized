@@ -1,0 +1,2 @@
+2025-09-09,Run:0,Walking:0,Study:0,Playing:0,Online Gaming:0,Programming:0,Problem Solving:0,Sleeping:0
+2025-09-10,Run:4,Walking:0,Study:0,Playing:0,Online Gaming:4,Programming:0,Problem Solving:0,Sleeping:0
