@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame {
     private int wrongAttempts = 0;
     private boolean passwordVisible = false;
 
-    // Modern Color Palette
+ 
     private static final Color PRIMARY_COLOR = new Color(37, 99, 235);      // Blue-600
     private static final Color SECONDARY_COLOR = new Color(99, 102, 241);   // Indigo-500
     private static final Color BACKGROUND_COLOR = new Color(248, 250, 252); // Slate-50
@@ -25,48 +25,43 @@ public class LoginFrame extends JFrame {
     private static final Color ERROR_COLOR = new Color(239, 68, 68);        // Red-500
 
     public LoginFrame() {
-        setTitle("HabitTracker Pro - Login");
-        setSize(480, 620);
+        setTitle("Personalized Habit Tracker - Login");
+        setSize(500, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         
-        // Set custom background
+        
         getContentPane().setBackground(BACKGROUND_COLOR);
         setLayout(new BorderLayout());
 
-        // Main container
+       
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(BACKGROUND_COLOR);
         mainPanel.setBorder(new EmptyBorder(40, 40, 40, 40));
 
-        // Header Panel
+        
         JPanel headerPanel = createHeaderPanel();
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
-        // Form Panel
+    
         JPanel formPanel = createFormPanel();
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
-        // Footer Panel
+       
         JPanel footerPanel = createFooterPanel();
         mainPanel.add(footerPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
 
-        // Actions
         loginBtn.addActionListener(e -> loginUser());
         regBtn.addActionListener(e -> {
             new RegisterFrame().setVisible(true);
             dispose();
         });
-        forgotBtn.addActionListener(e -> {
-            SwingUtilities.invokeLater(() -> new ResetPasswordFrame());
-            dispose();
-        });
+       
 
-        // Enter key support
         getRootPane().setDefaultButton(loginBtn);
     }
 
@@ -76,18 +71,18 @@ public class LoginFrame extends JFrame {
         headerPanel.setBackground(BACKGROUND_COLOR);
         headerPanel.setBorder(new EmptyBorder(0, 0, 30, 0));
 
-        // App Icon (Placeholder)
+        
         JLabel iconLabel = new JLabel("📊");
         iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 48));
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // App Title
-        JLabel titleLabel = new JLabel("HabitTracker Pro");
+      
+        JLabel titleLabel = new JLabel("Personalized Habit Tracker");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(TEXT_PRIMARY);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        // Subtitle
+       
         JLabel subtitleLabel = new JLabel("Track your habits, Transform your life");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         subtitleLabel.setForeground(TEXT_SECONDARY);
@@ -111,7 +106,7 @@ public class LoginFrame extends JFrame {
             new EmptyBorder(40, 30, 40, 30)
         ));
 
-        // Welcome text
+       
         JLabel welcomeLabel = new JLabel("Welcome back!");
         welcomeLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         welcomeLabel.setForeground(TEXT_PRIMARY);
@@ -122,22 +117,16 @@ public class LoginFrame extends JFrame {
         instructionLabel.setForeground(TEXT_SECONDARY);
         instructionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // User ID Field
+        
         JPanel idPanel = createInputPanel("User ID", "Enter your user ID");
         
-        // Password Field
+  
         JPanel passPanel = createPasswordPanel();
 
-        // Login Button
+       
         loginBtn = createPrimaryButton("Sign In", PRIMARY_COLOR);
         loginBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Forgot Password Button (initially hidden)
-        forgotBtn = createTextButton("Forgot your password?", WARNING_COLOR);
-        forgotBtn.setVisible(false);
-        forgotBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Add components with spacing
         cardPanel.add(welcomeLabel);
         cardPanel.add(Box.createVerticalStrut(5));
         cardPanel.add(instructionLabel);
@@ -147,8 +136,6 @@ public class LoginFrame extends JFrame {
         cardPanel.add(passPanel);
         cardPanel.add(Box.createVerticalStrut(30));
         cardPanel.add(loginBtn);
-        cardPanel.add(Box.createVerticalStrut(15));
-        cardPanel.add(forgotBtn);
 
         return cardPanel;
     }
@@ -195,12 +182,12 @@ public class LoginFrame extends JFrame {
         field.setBackground(Color.WHITE);
         field.setForeground(TEXT_PRIMARY);
 
-        // Store reference to idField
+      
         if (labelText.equals("User ID")) {
             idField = field;
         }
 
-        // Placeholder effect
+       
         field.setText(placeholder);
         field.setForeground(TEXT_SECONDARY);
         field.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -251,7 +238,7 @@ public class LoginFrame extends JFrame {
         passField.setBackground(Color.WHITE);
         passField.setForeground(TEXT_PRIMARY);
 
-        // Show/Hide password toggle
+        
         showPasswordLabel = new JLabel("👁");
         showPasswordLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         showPasswordLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -342,7 +329,7 @@ public class LoginFrame extends JFrame {
         String id = idField.getText().trim();
         String pass = new String(passField.getPassword()).trim();
         
-        // Check for placeholder text
+        
         if (id.equals("Enter your user ID") || id.isEmpty()) {
             showErrorMessage("Please enter your User ID");
             idField.requestFocus();
@@ -355,11 +342,10 @@ public class LoginFrame extends JFrame {
             return;
         }
         
-        // Show loading state
+  
         loginBtn.setText("Signing in...");
         loginBtn.setEnabled(false);
-        
-        // Simulate loading delay
+   
         Timer timer = new Timer(500, e -> {
             String userName = UserFileHandler.validateLogin(id, pass);
             if (userName != null) {
@@ -402,7 +388,7 @@ public class LoginFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Set system look and feel for better appearance
+       
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {

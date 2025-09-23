@@ -12,7 +12,7 @@ public class RegisterFrame extends JFrame {
     private JPasswordField passField;
     private JButton registerBtn, backBtn;
     
-    // Professional Color Palette
+   
     private static final Color PRIMARY_DARK = new Color(17, 24, 39);
     private static final Color PRIMARY_LIGHT = new Color(31, 41, 55);
     private static final Color ACCENT_BLUE = new Color(59, 130, 246);
@@ -28,14 +28,14 @@ public class RegisterFrame extends JFrame {
     private static final Color WARNING_COLOR = new Color(245, 158, 11);
 
     public RegisterFrame() {
-        setTitle("HabitTracker Pro - Create Account");
+        setTitle("Personalized Habit Tracker- Create Account");
         setSize(600, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
         setMinimumSize(new Dimension(550, 600));
         
-        // Modern look and feel
+       
         try {
             UIManager.setLookAndFeel(UIManager.getLookAndFeel());
         } catch (Exception e) {

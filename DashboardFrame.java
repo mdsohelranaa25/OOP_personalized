@@ -10,7 +10,7 @@ public class DashboardFrame extends JFrame {
     private String userId;
     private String userName;
     
-    // Modern Color Palette
+ 
     private static final Color PRIMARY_COLOR = new Color(37, 99, 235);      // Blue-600
     private static final Color SECONDARY_COLOR = new Color(99, 102, 241);   // Indigo-500
     private static final Color BACKGROUND_COLOR = new Color(248, 250, 252); // Slate-50
@@ -27,7 +27,7 @@ public class DashboardFrame extends JFrame {
         this.userId = userId;
         this.userName = userName;
 
-        setTitle("HabitTracker Pro - Dashboard");
+        setTitle("Personalize Habit Tracker - Dashboard");
         setSize(580, 750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -36,20 +36,20 @@ public class DashboardFrame extends JFrame {
         getContentPane().setBackground(BACKGROUND_COLOR);
         setLayout(new BorderLayout());
 
-        // Main container
+      
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(BACKGROUND_COLOR);
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Header Panel
+        
         JPanel headerPanel = createHeaderPanel();
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
-        // Content Panel
+       
         JPanel contentPanel = createContentPanel();
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
-        // Footer Panel
+       
         JPanel footerPanel = createFooterPanel();
         mainPanel.add(footerPanel, BorderLayout.SOUTH);
 
@@ -67,7 +67,7 @@ public class DashboardFrame extends JFrame {
             new EmptyBorder(25, 30, 25, 30)
         ));
 
-        // Left side - Welcome info
+       
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
         leftPanel.setBackground(CARD_COLOR);
@@ -94,7 +94,7 @@ public class DashboardFrame extends JFrame {
         leftPanel.add(Box.createVerticalStrut(5));
         leftPanel.add(mottoLabel);
 
-        // Right side - User ID
+       
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBackground(CARD_COLOR);
@@ -104,7 +104,7 @@ public class DashboardFrame extends JFrame {
         userIdLabel.setForeground(TEXT_SECONDARY);
         userIdLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
-        // Status indicator
+        
         JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         statusPanel.setBackground(CARD_COLOR);
         
@@ -136,7 +136,7 @@ public class DashboardFrame extends JFrame {
         contentPanel.setBackground(BACKGROUND_COLOR);
         contentPanel.setBorder(new EmptyBorder(25, 0, 25, 0));
 
-        // Create dashboard cards
+      
         JPanel habitCard = createDashboardCard("Add Habit", "Create new habits to track", 
             "➕", SUCCESS_COLOR, e -> {
                 new HabitFrame(userId, userName).setVisible(true);
@@ -161,7 +161,7 @@ public class DashboardFrame extends JFrame {
                 dispose();
             });
 
-        // Empty placeholder card for symmetrical layout
+       
         JPanel placeholderCard = createPlaceholderCard();
 
         JPanel logoutCard = createDashboardCard("Sign Out", "Exit your account", 
@@ -192,7 +192,7 @@ public class DashboardFrame extends JFrame {
         card.setBackground(new Color(250, 250, 250));
         card.setBorder(BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true));
 
-        // Empty card with subtle design
+       
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(new Color(250, 250, 250));
@@ -208,16 +208,16 @@ public class DashboardFrame extends JFrame {
         placeholderText.setForeground(TEXT_SECONDARY);
         placeholderText.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel placeholderSubText = new JLabel("coming soon");
-        placeholderSubText.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        placeholderSubText.setForeground(TEXT_SECONDARY);
-        placeholderSubText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // JLabel placeholderSubText = new JLabel("coming soon");
+        // placeholderSubText.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        // placeholderSubText.setForeground(TEXT_SECONDARY);
+        // placeholderSubText.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         centerPanel.add(placeholderIcon);
         centerPanel.add(Box.createVerticalStrut(10));
         centerPanel.add(placeholderText);
         centerPanel.add(Box.createVerticalStrut(5));
-        centerPanel.add(placeholderSubText);
+       // centerPanel.add(placeholderSubText);
 
         card.add(centerPanel, BorderLayout.CENTER);
 
