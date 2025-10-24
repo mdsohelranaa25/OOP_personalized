@@ -12,32 +12,32 @@ public class RegisterFrame extends JFrame {
     private JPasswordField passField;
     private JButton registerBtn, backBtn;
     
-   
-    private static final Color PRIMARY_DARK = new Color(17, 24, 39);
-    private static final Color PRIMARY_LIGHT = new Color(31, 41, 55);
-    private static final Color ACCENT_BLUE = new Color(59, 130, 246);
-    private static final Color ACCENT_GREEN = new Color(34, 197, 94);
-    private static final Color ACCENT_RED = new Color(239, 68, 68);
-    private static final Color BACKGROUND = new Color(249, 250, 251);
+    
+    private static final Color PRIMARY_DARK = new Color(15, 23, 42);        // Slate 900
+    private static final Color PRIMARY_LIGHT = new Color(30, 41, 59);       // Slate 800
+    private static final Color ACCENT_BLUE = new Color(37, 99, 235);        // Blue 600
+    private static final Color ACCENT_GREEN = new Color(5, 150, 105);       // Emerald 600
+    private static final Color ACCENT_RED = new Color(220, 38, 38);         // Red 600
+    private static final Color BACKGROUND = new Color(248, 250, 252);       // Slate 50
     private static final Color CARD_BACKGROUND = Color.WHITE;
-    private static final Color TEXT_PRIMARY = new Color(17, 24, 39);
-    private static final Color TEXT_SECONDARY = new Color(107, 114, 128);
-    private static final Color BORDER_COLOR = new Color(229, 231, 235);
-    private static final Color INPUT_BACKGROUND = new Color(249, 250, 251);
-    private static final Color SUCCESS_COLOR = new Color(16, 185, 129);
-    private static final Color WARNING_COLOR = new Color(245, 158, 11);
+    private static final Color TEXT_PRIMARY = new Color(15, 23, 42);        // Slate 900
+    private static final Color TEXT_SECONDARY = new Color(71, 85, 105);     // Slate 600
+    private static final Color BORDER_COLOR = new Color(203, 213, 225);     // Slate 300
+    private static final Color INPUT_BACKGROUND = new Color(248, 250, 252); // Slate 50
+    private static final Color SUCCESS_COLOR = new Color(5, 150, 105);      // Emerald 600
+    private static final Color WARNING_COLOR = new Color(217, 119, 6);      // Amber 600
+    private static final Color PROFESSIONAL_PURPLE = new Color(99, 102, 241); // Indigo 500
 
     public RegisterFrame() {
-        setTitle("Personalized Habit Tracker- Create Account");
-        setSize(600, 700);
+        setTitle("Personalized Habit Tracker - Create Account");
+        setSize(650, 750);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
-        setMinimumSize(new Dimension(550, 600));
+        setMinimumSize(new Dimension(600, 650));
         
-       
         try {
-            UIManager.setLookAndFeel(UIManager.getLookAndFeel());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,20 +45,20 @@ public class RegisterFrame extends JFrame {
         setLayout(new BorderLayout());
         getContentPane().setBackground(BACKGROUND);
         
-        // Add subtle window border
+        // Professional window border
         getRootPane().setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, BORDER_COLOR));
 
         initializeComponents();
     }
 
     private void initializeComponents() {
-        // Header Panel with Logo and Branding
+        // Professional Header Panel
         add(createHeaderPanel(), BorderLayout.NORTH);
         
         // Main Form Panel
         add(createMainFormPanel(), BorderLayout.CENTER);
         
-        // Footer Panel
+        // Professional Footer Panel
         add(createFooterPanel(), BorderLayout.SOUTH);
     }
 
@@ -70,62 +70,66 @@ public class RegisterFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 
-                // Gradient background
+                // Professional gradient background
                 GradientPaint gradient = new GradientPaint(
                     0, 0, PRIMARY_DARK,
-                    getWidth(), getHeight(), PRIMARY_LIGHT
+                    getWidth(), getHeight(), PROFESSIONAL_PURPLE
                 );
                 g2d.setPaint(gradient);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
                 
-                // Subtle pattern overlay
-                g2d.setColor(new Color(255, 255, 255, 10));
-                for (int i = 0; i < getWidth(); i += 20) {
-                    g2d.drawLine(i, 0, i, getHeight());
+                // Subtle geometric pattern overlay
+                g2d.setColor(new Color(255, 255, 255, 8));
+                for (int i = 0; i < getWidth(); i += 30) {
+                    for (int j = 0; j < getHeight(); j += 30) {
+                        g2d.fillOval(i, j, 2, 2);
+                    }
                 }
             }
         };
         
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-        headerPanel.setPreferredSize(new Dimension(0, 140));
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
+        headerPanel.setPreferredSize(new Dimension(0, 160));
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(40, 50, 40, 50));
 
-        // Logo and App Name
+        // Professional Logo and App Name
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         logoPanel.setOpaque(false);
         
-        JLabel logoLabel = new JLabel("🎯");
-        logoLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 48));
+        // Professional icon
+        JLabel logoLabel = new JLabel("📊");
+        logoLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 42));
         
-        JLabel appNameLabel = new JLabel("HabitTracker");
-        appNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 32));
+        JLabel appNameLabel = new JLabel("Personalized");
+        appNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         appNameLabel.setForeground(Color.WHITE);
-        appNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
+        appNameLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 5));
         
-        JLabel proLabel = new JLabel("PRO");
-        proLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        proLabel.setForeground(ACCENT_BLUE);
-        proLabel.setOpaque(true);
-        proLabel.setBackground(Color.WHITE);
-        proLabel.setBorder(BorderFactory.createEmptyBorder(2, 8, 2, 8));
-        proLabel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.WHITE, 1),
-            BorderFactory.createEmptyBorder(2, 8, 2, 8)
-        ));
+        JLabel trackerLabel = new JLabel("Habit Tracker");
+        trackerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 28));
+        trackerLabel.setForeground(new Color(226, 232, 240)); // Slate 200
         
         logoPanel.add(logoLabel);
         logoPanel.add(appNameLabel);
-        logoPanel.add(proLabel);
+        logoPanel.add(trackerLabel);
 
-        // Subtitle
-        JLabel subtitleLabel = new JLabel("Create Your Account");
-        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        subtitleLabel.setForeground(new Color(209, 213, 219));
+        // Professional subtitle
+        JLabel subtitleLabel = new JLabel("Create Your Professional Account");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        subtitleLabel.setForeground(new Color(203, 213, 225)); // Slate 300
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
+
+        // Professional tagline
+        JLabel taglineLabel = new JLabel("Build Better Habits, Achieve Greater Success");
+        taglineLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        taglineLabel.setForeground(new Color(148, 163, 184)); // Slate 400
+        taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        taglineLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
         headerPanel.add(logoPanel);
         headerPanel.add(subtitleLabel);
+        headerPanel.add(taglineLabel);
 
         return headerPanel;
     }
@@ -133,10 +137,10 @@ public class RegisterFrame extends JFrame {
     private JPanel createMainFormPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(BACKGROUND);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(25, 50, 25, 50));
         mainPanel.setLayout(new BorderLayout());
 
-        // Form Card with Scroll Support
+        // Professional Form Card with enhanced shadow
         JPanel formCard = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -144,58 +148,67 @@ public class RegisterFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                // Card shadow
-                g2d.setColor(new Color(0, 0, 0, 8));
-                for (int i = 0; i < 5; i++) {
-                    g2d.fill(new RoundRectangle2D.Float(i, i, getWidth() - (i * 2), getHeight() - (i * 2), 15 + i, 15 + i));
+                // Enhanced card shadow
+                g2d.setColor(new Color(15, 23, 42, 15)); // Darker shadow
+                for (int i = 0; i < 8; i++) {
+                    g2d.fill(new RoundRectangle2D.Float(i, i, getWidth() - (i * 2), getHeight() - (i * 2), 20 + i, 20 + i));
                 }
                 
                 // Card background
                 g2d.setColor(CARD_BACKGROUND);
-                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 15, 15));
+                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 20, 20));
                 
-                // Card border
+                // Professional border
                 g2d.setColor(BORDER_COLOR);
-                g2d.setStroke(new BasicStroke(1));
-                g2d.draw(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15));
+                g2d.setStroke(new BasicStroke(1.5f));
+                g2d.draw(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 20, 20));
             }
         };
         
         formCard.setLayout(new GridBagLayout());
-        formCard.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        formCard.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(12, 0, 12, 0);
+        gbc.insets = new Insets(15, 0, 15, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1.0;
 
-        // Form Title
-        JLabel formTitle = new JLabel("Personal Information");
-        formTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        // Professional Form Title
+        JLabel formTitle = new JLabel("Registration Form");
+        formTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
         formTitle.setForeground(TEXT_PRIMARY);
         formTitle.setHorizontalAlignment(SwingConstants.CENTER);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         formCard.add(formTitle, gbc);
 
-        // Form Fields
-        gbc.gridwidth = 1;
-        int row = 1;
-        
-        nameField = addModernField(formCard, "👤", "Full Name", "Enter your full name", row++, gbc);
-        idField = addModernField(formCard, "🆔", "User ID", "Choose a unique user ID", row++, gbc);
-        passField = addModernPasswordField(formCard, "🔒", "Password", "Create a secure password", row++, gbc);
-        mobileField = addModernField(formCard, "📱", "Mobile Number", "Your contact number", row++, gbc);
-        hallField = addModernField(formCard, "🏢", "Hall/Residence", "Your residence hall", row++, gbc);
-        deptField = addModernField(formCard, "🎓", "Department", "Your department/major", row++, gbc);
-        batchField = addModernField(formCard, "📅", "Batch", "Your batch/year", row++, gbc);
+        JLabel formSubtitle = new JLabel("Please fill in all required information");
+        formSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        formSubtitle.setForeground(TEXT_SECONDARY);
+        formSubtitle.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 2;
+        gbc.insets = new Insets(0, 0, 25, 0);
+        formCard.add(formSubtitle, gbc);
 
-        // Button Panel
-        JPanel buttonPanel = createButtonPanel();
+        // Form Fields with professional icons
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(12, 0, 12, 0);
+        int row = 2;
+        
+        nameField = addProfessionalField(formCard, "👤", "Full Name", "Enter your complete name", row++, gbc, true);
+        idField = addProfessionalField(formCard, "🆔", "User ID", "Choose a unique identifier", row++, gbc, true);
+        passField = addProfessionalPasswordField(formCard, "🔐", "Password", "Create a secure password", row++, gbc);
+        mobileField = addProfessionalField(formCard, "📱", "Mobile Number", "Your contact number", row++, gbc, false);
+        hallField = addProfessionalField(formCard, "🏢", "Hall/Residence", "Your residence information", row++, gbc, false);
+        deptField = addProfessionalField(formCard, "🎓", "Department", "Your department/major", row++, gbc, false);
+        batchField = addProfessionalField(formCard, "📅", "Batch/Year", "Your academic batch", row++, gbc, false);
+
+        // Professional Button Panel
+        JPanel buttonPanel = createProfessionalButtonPanel();
         gbc.gridx = 0; gbc.gridy = row; gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 0, 0, 0);
+        gbc.insets = new Insets(25, 0, 0, 0);
         formCard.add(buttonPanel, gbc);
 
-        // Add scroll capability
+        // Enhanced scroll pane
         JScrollPane scrollPane = new JScrollPane(formCard);
         scrollPane.setBackground(BACKGROUND);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -203,12 +216,12 @@ public class RegisterFrame extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
-        // Custom scroll bar styling
+        // Professional scroll bar styling
         scrollPane.getVerticalScrollBar().setBackground(BACKGROUND);
         scrollPane.getVerticalScrollBar().setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
-                this.thumbColor = BORDER_COLOR;
+                this.thumbColor = new Color(148, 163, 184); // Slate 400
                 this.trackColor = BACKGROUND;
             }
         });
@@ -217,9 +230,9 @@ public class RegisterFrame extends JFrame {
         return mainPanel;
     }
 
-    private JTextField addModernField(JPanel parent, String icon, String label, String placeholder, 
-                                    int row, GridBagConstraints gbc) {
-        JPanel fieldPanel = createFieldPanel(icon, label);
+    private JTextField addProfessionalField(JPanel parent, String icon, String label, String placeholder, 
+                                          int row, GridBagConstraints gbc, boolean required) {
+        JPanel fieldPanel = createProfessionalFieldPanel(icon, label, required);
         
         JTextField field = new JTextField() {
             @Override
@@ -227,9 +240,9 @@ public class RegisterFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                // Field background
+                // Professional field background
                 g2d.setColor(getBackground());
-                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 8, 8));
+                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 10, 10));
                 
                 super.paintComponent(g);
             }
@@ -240,11 +253,11 @@ public class RegisterFrame extends JFrame {
         field.setForeground(TEXT_PRIMARY);
         field.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(BORDER_COLOR, 1),
-            BorderFactory.createEmptyBorder(12, 16, 12, 16)
+            BorderFactory.createEmptyBorder(14, 18, 14, 18)
         ));
-        field.setPreferredSize(new Dimension(0, 45));
+        field.setPreferredSize(new Dimension(0, 48));
         
-        // Placeholder effect
+        // Professional placeholder effect
         field.setText(placeholder);
         field.setForeground(TEXT_SECONDARY);
         
@@ -257,8 +270,9 @@ public class RegisterFrame extends JFrame {
                 }
                 field.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(ACCENT_BLUE, 2),
-                    BorderFactory.createEmptyBorder(11, 15, 11, 15)
+                    BorderFactory.createEmptyBorder(13, 17, 13, 17)
                 ));
+                field.setBackground(Color.WHITE);
             }
             
             @Override
@@ -269,8 +283,9 @@ public class RegisterFrame extends JFrame {
                 }
                 field.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(BORDER_COLOR, 1),
-                    BorderFactory.createEmptyBorder(12, 16, 12, 16)
+                    BorderFactory.createEmptyBorder(14, 18, 14, 18)
                 ));
+                field.setBackground(INPUT_BACKGROUND);
             }
         });
 
@@ -282,9 +297,9 @@ public class RegisterFrame extends JFrame {
         return field;
     }
 
-    private JPasswordField addModernPasswordField(JPanel parent, String icon, String label, 
-                                                String placeholder, int row, GridBagConstraints gbc) {
-        JPanel fieldPanel = createFieldPanel(icon, label);
+    private JPasswordField addProfessionalPasswordField(JPanel parent, String icon, String label, 
+                                                       String placeholder, int row, GridBagConstraints gbc) {
+        JPanel fieldPanel = createProfessionalFieldPanel(icon, label, true);
         
         JPasswordField field = new JPasswordField() {
             @Override
@@ -293,20 +308,20 @@ public class RegisterFrame extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
                 g2d.setColor(getBackground());
-                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 8, 8));
+                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 10, 10));
                 
                 super.paintComponent(g);
             }
         };
         
-        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        field.setFont(new Font("Segoe UI", Font.BOLD, 14));
         field.setBackground(INPUT_BACKGROUND);
         field.setForeground(TEXT_PRIMARY);
         field.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(BORDER_COLOR, 1),
-            BorderFactory.createEmptyBorder(12, 16, 12, 16)
+            BorderFactory.createEmptyBorder(14, 18, 14, 18)
         ));
-        field.setPreferredSize(new Dimension(0, 45));
+        field.setPreferredSize(new Dimension(0, 48));
         field.setEchoChar((char) 0);
         field.setText(placeholder);
         field.setForeground(TEXT_SECONDARY);
@@ -321,8 +336,9 @@ public class RegisterFrame extends JFrame {
                 }
                 field.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(ACCENT_BLUE, 2),
-                    BorderFactory.createEmptyBorder(11, 15, 11, 15)
+                    BorderFactory.createEmptyBorder(13, 17, 13, 17)
                 ));
+                field.setBackground(Color.WHITE);
             }
             
             @Override
@@ -334,8 +350,9 @@ public class RegisterFrame extends JFrame {
                 }
                 field.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(BORDER_COLOR, 1),
-                    BorderFactory.createEmptyBorder(12, 16, 12, 16)
+                    BorderFactory.createEmptyBorder(14, 18, 14, 18)
                 ));
+                field.setBackground(INPUT_BACKGROUND);
             }
         });
 
@@ -347,17 +364,17 @@ public class RegisterFrame extends JFrame {
         return field;
     }
 
-    private JPanel createFieldPanel(String icon, String label) {
+    private JPanel createProfessionalFieldPanel(String icon, String label, boolean required) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(CARD_BACKGROUND);
         
-        // Label with icon
+        // Professional label with icon and required indicator
         JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         labelPanel.setBackground(CARD_BACKGROUND);
         
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 8));
+        iconLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
         
         JLabel textLabel = new JLabel(label);
         textLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -366,18 +383,26 @@ public class RegisterFrame extends JFrame {
         labelPanel.add(iconLabel);
         labelPanel.add(textLabel);
         
+        if (required) {
+            JLabel requiredLabel = new JLabel("*");
+            requiredLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            requiredLabel.setForeground(ACCENT_RED);
+            requiredLabel.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0));
+            labelPanel.add(requiredLabel);
+        }
+        
         panel.add(labelPanel, BorderLayout.NORTH);
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
         
         return panel;
     }
 
-    private JPanel createButtonPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 2, 20, 0));
+    private JPanel createProfessionalButtonPanel() {
+        JPanel panel = new JPanel(new GridLayout(1, 2, 25, 0));
         panel.setBackground(CARD_BACKGROUND);
         
-        registerBtn = createModernButton("Create Account", ACCENT_GREEN, "✅");
-        backBtn = createModernButton("Back to Login", ACCENT_RED, "←");
+        registerBtn = createProfessionalButton("Create Account", ACCENT_GREEN, "✓");
+        backBtn = createProfessionalButton("Back to Login", TEXT_SECONDARY, "←");
         
         registerBtn.addActionListener(e -> registerUser());
         backBtn.addActionListener(e -> {
@@ -391,7 +416,7 @@ public class RegisterFrame extends JFrame {
         return panel;
     }
 
-    private JButton createModernButton(String text, Color bgColor, String icon) {
+    private JButton createProfessionalButton(String text, Color bgColor, String icon) {
         JButton button = new JButton() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -403,20 +428,20 @@ public class RegisterFrame extends JFrame {
                     currentColor = bgColor.darker();
                 } else if (getModel().isRollover()) {
                     currentColor = new Color(
-                        Math.min(255, bgColor.getRed() + 20),
-                        Math.min(255, bgColor.getGreen() + 20),
-                        Math.min(255, bgColor.getBlue() + 20)
+                        Math.min(255, bgColor.getRed() + 15),
+                        Math.min(255, bgColor.getGreen() + 15),
+                        Math.min(255, bgColor.getBlue() + 15)
                     );
                 }
                 
                 g2d.setColor(currentColor);
-                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 10, 10));
+                g2d.fill(new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), 12, 12));
                 
-                // Button text with icon
+                // Professional button text with icon
                 g2d.setColor(Color.WHITE);
                 g2d.setFont(getFont());
                 FontMetrics fm = g2d.getFontMetrics();
-                String buttonText = icon + " " + text;
+                String buttonText = icon + "  " + text;
                 int x = (getWidth() - fm.stringWidth(buttonText)) / 2;
                 int y = ((getHeight() - fm.getHeight()) / 2) + fm.getAscent();
                 g2d.drawString(buttonText, x, y);
@@ -430,9 +455,9 @@ public class RegisterFrame extends JFrame {
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setPreferredSize(new Dimension(0, 50));
+        button.setPreferredSize(new Dimension(0, 52));
         
-        // Hover animation
+        // Professional hover animation
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -450,14 +475,14 @@ public class RegisterFrame extends JFrame {
 
     private JPanel createFooterPanel() {
         JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(new Color(249, 250, 251));
+        footerPanel.setBackground(BACKGROUND);
         footerPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(1, 0, 0, 0, BORDER_COLOR),
-            BorderFactory.createEmptyBorder(15, 0, 15, 0)
+            BorderFactory.createEmptyBorder(20, 0, 20, 0)
         ));
         
-        JLabel footerLabel = new JLabel("🚀 Join thousands of users building better habits");
-        footerLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        JLabel footerLabel = new JLabel("🎯 Transform Your Life Through Personalized Habit Tracking");
+        footerLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         footerLabel.setForeground(TEXT_SECONDARY);
         footerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -468,37 +493,37 @@ public class RegisterFrame extends JFrame {
 
     private void registerUser() {
         // Get field values, checking for placeholders
-        String name = getFieldValue(nameField, "Enter your full name");
-        String id = getFieldValue(idField, "Choose a unique user ID");
+        String name = getFieldValue(nameField, "Enter your complete name");
+        String id = getFieldValue(idField, "Choose a unique identifier");
         String pass = getPasswordValue(passField, "Create a secure password");
         String mobile = getFieldValue(mobileField, "Your contact number");
-        String hall = getFieldValue(hallField, "Your residence hall");
+        String hall = getFieldValue(hallField, "Your residence information");
         String dept = getFieldValue(deptField, "Your department/major");
-        String batch = getFieldValue(batchField, "Your batch/year");
+        String batch = getFieldValue(batchField, "Your academic batch");
 
-        // Validation
+        // Professional validation
         if (id.isEmpty() || pass.isEmpty()) {
-            showModernDialog("⚠️ Validation Error", "User ID and Password are required!", WARNING_COLOR);
+            showProfessionalDialog("⚠️ Validation Required", "User ID and Password are mandatory fields!", WARNING_COLOR);
             return;
         }
         
         if (name.isEmpty()) {
-            showModernDialog("⚠️ Validation Error", "Please enter your full name!", WARNING_COLOR);
+            showProfessionalDialog("⚠️ Validation Required", "Please provide your complete name!", WARNING_COLOR);
             return;
         }
 
         if (UserFileHandler.idExists(id)) {
-            showModernDialog("❌ Registration Failed", "This User ID already exists!\nPlease choose a different one.", ACCENT_RED);
+            showProfessionalDialog("❌ Registration Failed", "This User ID is already registered!\nPlease choose a different identifier.", ACCENT_RED);
             return;
         }
 
         // Save user
         if (UserFileHandler.saveUser(id, pass, name, mobile, hall, dept, batch, "")) {
-            showModernDialog("🎉 Success!", "Account created successfully!\nYou can now login with your credentials.", SUCCESS_COLOR);
+            showProfessionalDialog("🎉 Account Created!", "Registration completed successfully!\nYou may now login with your credentials.", SUCCESS_COLOR);
             new LoginFrame().setVisible(true);
             dispose();
         } else {
-            showModernDialog("❌ Error", "Failed to create account!\nPlease try again.", ACCENT_RED);
+            showProfessionalDialog("❌ System Error", "Unable to create account at this time.\nPlease try again later.", ACCENT_RED);
         }
     }
 
@@ -512,15 +537,15 @@ public class RegisterFrame extends JFrame {
         return value.equals(placeholder) ? "" : value;
     }
 
-    private void showModernDialog(String title, String message, Color accentColor) {
+    private void showProfessionalDialog(String title, String message, Color accentColor) {
         JDialog dialog = new JDialog(this, title, true);
-        dialog.setSize(400, 200);
+        dialog.setSize(420, 220);
         dialog.setLocationRelativeTo(this);
         dialog.setLayout(new BorderLayout());
         
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(CARD_BACKGROUND);
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(30, 30, 20, 30));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(35, 35, 25, 35));
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         
         JLabel messageLabel = new JLabel("<html><center>" + message + "</center></html>");
@@ -528,12 +553,12 @@ public class RegisterFrame extends JFrame {
         messageLabel.setForeground(TEXT_PRIMARY);
         messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JButton okButton = createModernButton("OK", accentColor, "✓");
+        JButton okButton = createProfessionalButton("OK", accentColor, "✓");
         okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         okButton.addActionListener(e -> dialog.dispose());
         
         contentPanel.add(messageLabel);
-        contentPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        contentPanel.add(Box.createRigidArea(new Dimension(0, 25)));
         contentPanel.add(okButton);
         
         dialog.add(contentPanel);

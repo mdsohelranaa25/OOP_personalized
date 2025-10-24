@@ -1,4 +1,3 @@
-// ================== ProfileFrame.java ==================
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -27,7 +26,6 @@ public class ProfileFrame extends JFrame {
         panel.setLayout(null);
         panel.setBackground(new Color(245, 245, 245));
 
-        // Profile Picture
         picLabel = new JLabel();
         picLabel.setBounds(150, 20, 150, 150);
         picLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
@@ -39,7 +37,6 @@ public class ProfileFrame extends JFrame {
         uploadBtn.setBounds(150, 180, 150, 30);
         panel.add(uploadBtn);
 
-        // User Info Fields
         JLabel nameLbl = new JLabel("Name:");
         nameLbl.setBounds(50, 230, 100, 25);
         panel.add(nameLbl);
@@ -71,7 +68,6 @@ public class ProfileFrame extends JFrame {
 
         add(panel, BorderLayout.CENTER);
 
-        // Load user data from file
         loadUserData();
         loadProfilePicture();
 
@@ -94,11 +90,10 @@ public class ProfileFrame extends JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                // Format: id,pass,name,hall,dept,batch,season,mobile
                 if (parts.length >= 3 && parts[0].equals(userId)) {
-                    nameField.setText(parts[2]); // name
-                    mobileField.setText(parts.length > 7 ? parts[7] : ""); // mobile at index 7
-                    deptField.setText(parts.length > 4 ? parts[4] : ""); // dept
+                    nameField.setText(parts[2]);
+                    mobileField.setText(parts.length > 7 ? parts[7] : "");
+                    deptField.setText(parts.length > 4 ? parts[4] : "");
                     break;
                 }
             }
@@ -109,7 +104,6 @@ public class ProfileFrame extends JFrame {
     }
 
     private void loadProfilePicture() {
-        // Create profile_pics directory if it doesn't exist
         File picDir = new File("profile_pics");
         if (!picDir.exists()) {
             picDir.mkdir();
@@ -147,20 +141,17 @@ public class ProfileFrame extends JFrame {
             try {
                 File selectedFile = chooser.getSelectedFile();
                 
-                // Create profile_pics directory if it doesn't exist
                 File picDir = new File("profile_pics");
                 if (!picDir.exists()) {
                     picDir.mkdir();
                 }
 
-                // Copy the selected file to profile_pics directory with user-specific name
                 String extension = getFileExtension(selectedFile.getName());
                 File destFile = new File("profile_pics/" + userId + "_profile" + extension);
                 Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                 currentPicPath = destFile.getAbsolutePath();
 
-                // Display the image
                 ImageIcon icon = new ImageIcon(currentPicPath);
                 Image img = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
                 picLabel.setIcon(new ImageIcon(img));
@@ -194,15 +185,12 @@ public class ProfileFrame extends JFrame {
             List<String> lines = new ArrayList<>();
             boolean userFound = false;
 
-            // Read existing data
             if (file.exists()) {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(",");
                     if (parts.length >= 3 && parts[0].equals(userId)) {
-                        // Update existing user data
-                        // Format: id,pass,name,hall,dept,batch,season,mobile
                         String updatedLine = parts[0] + "," + parts[1] + "," + name + "," + 
                                            (parts.length > 3 ? parts[3] : "") + "," + dept + "," +
                                            (parts.length > 5 ? parts[5] : "") + "," + 
@@ -216,7 +204,6 @@ public class ProfileFrame extends JFrame {
                 reader.close();
             }
 
-            // Write updated data back to file
             if (userFound) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                 for (String line : lines) {

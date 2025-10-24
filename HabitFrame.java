@@ -30,7 +30,7 @@ public class HabitFrame extends JFrame {
         this.userName = userName;
 
         // Window setup
-        setTitle("Habit Tracker - " + userName);
+        setTitle("Personalized Habit Tracker - " + userName);
         setSize(600, 700);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
